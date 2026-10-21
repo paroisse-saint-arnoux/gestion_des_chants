@@ -276,7 +276,7 @@ final class ChantController
             'ordinaire' => ['titre', 'chant'],
             'lecture'   => ['titre', 'reference', 'introduction', 'contenu'],
             'psaume'    => ['titre', 'chant', 'reference'],
-            'evangile'  => ['acclamation', 'introduction', 'reference', 'contenu'],
+            'evangile'  => ['acclamation', 'introduction', 'reference', 'titre', 'contenu'],
             'priere'    => ['contenu'],
         ];
 

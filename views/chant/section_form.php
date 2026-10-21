@@ -121,12 +121,16 @@ $apercuParoissien = in_array($comportement, ['lecture', 'evangile'], true);
             <textarea class="form-control" id="acclamation" name="acclamation" rows="4"><?= e($section['acclamation']) ?></textarea>
         </div>
         <div>
-            <label class="form-label" for="introduction">Phrase introductive</label>
+            <label class="form-label" for="introduction">Introduction</label>
             <input type="text" class="form-control" id="introduction" name="introduction" value="<?= e($section['introduction']) ?>" placeholder="Évangile de Jésus Christ selon saint Matthieu">
         </div>
         <div>
             <label class="form-label" for="reference">Référence</label>
             <input type="text" class="form-control" id="reference" name="reference" value="<?= e($section['reference']) ?>" placeholder="Mt 18, 15-20">
+        </div>
+        <div>
+            <label class="form-label" for="titre">Phrase introductive</label>
+            <input type="text" class="form-control" id="titre" name="titre" value="<?= e($section['titre']) ?>" placeholder="« S’étant repenti, il y alla »">
         </div>
         <div>
             <label class="form-label" for="contenu">Contenu</label>
