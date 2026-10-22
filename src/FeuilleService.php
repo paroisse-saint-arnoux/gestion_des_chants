@@ -112,11 +112,11 @@ final class FeuilleService
         });
     }
 
-    /** Recharge les infos AELF et écrase les sections de lecture. */
-    public static function resync(array $feuille): bool
+    /** Recharge les infos AELF (zone : clé de Aelf::ZONES) et écrase les sections de lecture. */
+    public static function resync(array $feuille, string $zone = 'france'): bool
     {
         $dateHeure = new DateTimeImmutable($feuille['date_heure']);
-        $aelf = Aelf::snapshot($dateHeure);
+        $aelf = Aelf::snapshot($dateHeure, $zone);
         if (!$aelf['ok']) {
             return false;
         }

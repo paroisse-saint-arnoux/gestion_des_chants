@@ -155,7 +155,7 @@ final class FeuilleController
             exit('Feuille introuvable.');
         }
 
-        $ok = FeuilleService::resync($feuille);
+        $ok = FeuilleService::resync($feuille, (string) ($_POST['zone'] ?? 'france'));
         flash($ok ? 'success' : 'error', $ok
             ? 'Lectures resynchronisées depuis AELF.'
             : 'AELF indisponible pour le moment, réessayez plus tard.');

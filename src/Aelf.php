@@ -16,8 +16,15 @@ final class Aelf
     private const BASE = 'https://api.aelf.org/v1';
     private const TTL = 43200; // 12 h
 
+    /** Zones liturgiques AELF proposées (segment d'URL => libellé). */
+    public const ZONES = [
+        'france' => 'Calendrier français',
+        'romain' => 'Calendrier romain',
+    ];
+
     /**
-     * Récupère et prépare les données AELF pour la messe donnée.
+     * Récupère et prépare les données AELF pour la messe donnée, selon la zone
+     * liturgique (clé de self::ZONES ; « france » par défaut).
      *
      * @return array{
      *   ok: bool,
@@ -28,8 +35,11 @@ final class Aelf
      *   erreur: ?string
      * }
      */
-    public static function snapshot(DateTimeImmutable $messe): array
+    public static function snapshot(DateTimeImmutable $messe, string $zone = 'france'): array
     {
+        if (!isset(self::ZONES[$zone])) {
+            $zone = 'france';
+        }
         $date = Liturgy::dateLiturgique($messe)->format('Y-m-d');
 
         $out = [
@@ -42,8 +52,8 @@ final class Aelf
         ];
 
         try {
-            $messes = self::fetch("/messes/{$date}/france");
-            $infos = self::fetch("/informations/{$date}/france");
+            $messes = self::fetch("/messes/{$date}/{$zone}");
+            $infos = self::fetch("/informations/{$date}/{$zone}");
         } catch (\Throwable $e) {
             $out['erreur'] = $e->getMessage();
 

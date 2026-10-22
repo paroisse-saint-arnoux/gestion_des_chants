@@ -25,10 +25,7 @@ $semaineAnnee = trim(($feuille['annee'] ? 'Année ' . $feuille['annee'] : '') . 
         <div class="d-flex flex-column gap-2">
             <a class="btn btn-sm btn-outline-primary" target="_blank" href="<?= e(feuille_public_url($feuille)) ?>"><i class="bi bi-box-arrow-up-right"></i> Aperçu paroissien</a>
             <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#impressionModal"><i class="bi bi-file-earmark-word"></i> Exporter en Word</button>
-            <form method="post" action="/app/feuilles/<?= $feuille['id'] ?>/resync" onsubmit="return confirm('Recharger les lectures depuis AELF ? Les lectures modifiées seront écrasées.')">
-                <?= Csrf::field() ?>
-                <button class="btn btn-sm btn-outline-secondary w-100"><i class="bi bi-arrow-repeat"></i> Resynchroniser AELF</button>
-            </form>
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#resyncModal"><i class="bi bi-arrow-repeat"></i> Resynchroniser AELF</button>
             <button type="button" class="btn btn-sm btn-outline-secondary" data-copie
                     data-id="<?= $feuille['id'] ?>"
                     data-defaut="<?= e((new DateTimeImmutable($feuille['date_heure']))->format('Y-m-d\TH:i')) ?>"
@@ -63,6 +60,7 @@ $semaineAnnee = trim(($feuille['annee'] ? 'Année ' . $feuille['annee'] : '') . 
 
 <?php require APP_ROOT . '/views/feuilles/_copie_modal.php'; ?>
 <?php require APP_ROOT . '/views/feuilles/_impression_modal.php'; ?>
+<?php require APP_ROOT . '/views/feuilles/_resync_modal.php'; ?>
 
 <div class="list-group mb-3" data-sections data-feuille="<?= $feuille['id'] ?>">
     <?php foreach ($sections as $s): ?>
