@@ -118,9 +118,11 @@ final class FeuilleController
             http_response_code(404);
             exit('Feuille introuvable.');
         }
-        if ((int) $feuille['chantre_id'] !== Auth::id()) {
-            flash('error', 'Seul l\'auteur peut supprimer cette feuille.');
-            redirect('/app');
+        // Feuille d'un autre chantre : confirmation renforcée (saisie de « supprime »).
+        if ((int) $feuille['chantre_id'] !== Auth::id()
+            && mb_strtolower(trim((string) ($_POST['confirmation'] ?? ''))) !== 'supprime') {
+            flash('error', 'Suppression annulée : tapez « supprime » pour confirmer.');
+            redirect('/app/feuilles/' . $feuille['id']);
         }
 
         FeuilleChant::delete((int) $feuille['id']);

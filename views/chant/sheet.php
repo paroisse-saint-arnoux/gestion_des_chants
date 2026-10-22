@@ -35,6 +35,13 @@ $semaineAnnee = trim(($feuille['annee'] ? 'Année ' . $feuille['annee'] : '') . 
                     <?= Csrf::field() ?>
                     <button class="btn btn-sm btn-outline-danger w-100"><i class="bi bi-trash3"></i> Supprimer la feuille</button>
                 </form>
+            <?php else: ?>
+                <form method="post" action="/app/feuilles/<?= $feuille['id'] ?>/supprimer"
+                      onsubmit="const v = prompt('Cette feuille a été créée par un autre chantre. Tapez « supprime » pour la supprimer définitivement.'); if (v === null) return false; this.confirmation.value = v; return true;">
+                    <?= Csrf::field() ?>
+                    <input type="hidden" name="confirmation" value="">
+                    <button class="btn btn-sm btn-outline-danger w-100"><i class="bi bi-trash3"></i> Supprimer la feuille</button>
+                </form>
             <?php endif; ?>
         </div>
     </div>
